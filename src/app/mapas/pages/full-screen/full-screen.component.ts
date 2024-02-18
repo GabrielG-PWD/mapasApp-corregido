@@ -26,4 +26,5 @@ export class FullScreenComponent implements OnInit {
       zoom: 12
     });
   }
+
 }

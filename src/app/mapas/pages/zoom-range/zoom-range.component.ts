@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import * as maptilersdk from '@maptiler/sdk';
 
 
@@ -24,11 +24,20 @@ import * as maptilersdk from '@maptiler/sdk';
     }
     `
 })
-export class ZoomRangeComponent implements AfterViewInit {
+export class ZoomRangeComponent implements AfterViewInit, OnDestroy {
+
   @ViewChild('mapa') divMapa!: ElementRef;
   mapa!: maptilersdk.Map;
   zoomLevel: number = 10;
   center: [number, number] = [-64.24977732345958, -31.432760569968032];
+
+  constructor() { }
+
+  ngOnDestroy(): void {
+    this.mapa.off('zoom', () => { })
+    this.mapa.off('zoomend', () => { })
+    this.mapa.off('move', () => { })
+  }
 
   ngAfterViewInit(): void {
     this.mapa = new maptilersdk.Map({
@@ -67,4 +76,7 @@ export class ZoomRangeComponent implements AfterViewInit {
   zoomCambio(valor: string) {
     this.mapa.zoomTo(Number(valor))
   }
+
+
+
 }
