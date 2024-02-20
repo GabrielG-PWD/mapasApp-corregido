@@ -76,7 +76,4 @@ export class ZoomRangeComponent implements AfterViewInit, OnDestroy {
   zoomCambio(valor: string) {
     this.mapa.zoomTo(Number(valor))
   }
-
-
-
 }
